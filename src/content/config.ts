@@ -15,4 +15,4 @@ const books = defineCollection({
   })
 })
 
-export const collections = {books}
+export const collections = { books }
