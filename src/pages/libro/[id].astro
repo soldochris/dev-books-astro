@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
+import { SHOW_BUY_BUTTON } from "astro:env/server";
 import Layout from "../../layouts/Layout.astro";
+import AmazonLogo from "../../components/AmazonLogo.astro";
 
 export async function getStaticPaths(){
   const books = await getCollection("books");
@@ -27,7 +29,21 @@ const {Content} = await render(book)
         alt={title} 
         class="rounded w-72 h-auto"
       />
-      <!--TODO: link for buy -->
+      <span class="text-xs" id="score"></span>
+      {
+        SHOW_BUY_BUTTON && (
+          <a 
+            href={buy.spain}
+            title="comprar libro"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-balance inline-flex gap-2 items-center bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 text-black font-bold py-2 px-4 rounded-lg border border-yellow-500 transition duration-200 ease-in-out hover:scale-105 jus text-center"
+          >
+            Comprar en Amazon España
+            <AmazonLogo/>
+          </a>
+        )
+      }
     </aside>
     <main class="max-w-3xl">
       <h1  transition:name={`title-${slug}`} class="text-4xl font-bold mb-4">
@@ -39,3 +55,7 @@ const {Content} = await render(book)
     </main>
   </div>
 </Layout>
+
+<script>
+  import { SCORE_API_ENDPOINT } from "astro:env/client";
+</script>
