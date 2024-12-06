@@ -58,4 +58,14 @@ const {Content} = await render(book)
 
 <script>
   import { SCORE_API_ENDPOINT } from "astro:env/client";
+
+  const scoreElement = document.querySelector("#score")
+
+  fetch(SCORE_API_ENDPOINT)
+    .then(res => res.text())
+    .then(scoreValue =>{
+      if(scoreElement){
+        scoreElement.innerHTML = `⭐️ puntuación: ${scoreValue.trim()}/5`
+      }
+    })
 </script>
